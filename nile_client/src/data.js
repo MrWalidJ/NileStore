@@ -1,0 +1,53 @@
+const data = {
+  products: [
+    {
+      name: "Samsung Galaxy S10+",
+      slug: "galaxy-s10+",
+      category: "Mobile phones",
+      image: "/images/gs10+.jpg", // 680px x 830 px
+      price: 1320,
+      countInStock: 13,
+      brand: " Samsung",
+      rating: 4.5,
+      numReviews: 10,
+      description: "high quality phone 128 GB",
+    },
+    {
+      name: "Samsung Galaxy S20",
+      slug: "galaxy-s20",
+      category: "Mobile phones",
+      image: "/images/gs20.jpg",
+      price: 1649,
+      countInStock: 13,
+      brand: " Samsung",
+      rating: 4.7,
+      numReviews: 23,
+      description: "high quality phone 8GB RAM",
+    },
+    {
+      name: "Samsung Galaxy S20 ultra",
+      slug: "galaxy-s20 ultra",
+      category: "Mobile phones",
+      image: "/images/gs20-ultra.jpg",
+      price: 2103,
+      countInStock: 14,
+      brand: " Samsung",
+      rating: 4.8,
+      numReviews: 33,
+      description: "high quality phone 12GB RAM",
+    },
+    {
+      name: "Samsung Galaxy S21 Ultra",
+      slug: "galaxy-s21 ultra",
+      category: "Mobile phones",
+      image: "/images/gs21-ultra.jpg",
+      price: 3399,
+      countInStock: 21,
+      brand: " Samsung",
+      rating: 4.8,
+      numReviews: 17,
+      description: "high quality phone 256GB + 12GB RAM",
+    },
+  ],
+};
+export default data;
