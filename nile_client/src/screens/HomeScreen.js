@@ -1,78 +1,70 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
-// import data from "../data";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 import logger from "use-reducer-logger";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Product from "../components/Product";
+import { Helmet } from "react-helmet-async";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+// import data from '../data';
 
 const reducer = (state, action) => {
-  // used when a state depends on previous one
   switch (action.type) {
     case "FETCH_REQUEST":
       return { ...state, loading: true };
     case "FETCH_SUCCESS":
-      return { ...state, products: action.payloz, loading: false };
+      return { ...state, products: action.payload, loading: false };
     case "FETCH_FAIL":
-      return { ...state, loading: false, error: action.payloz };
+      return { ...state, loading: false, error: action.payload };
     default:
-      return state; // current state
+      return state;
   }
 };
-
-export default function HomeScreen() {
-  const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
+function HomeScreen() {
+    
+  const [{ error,loading, products}, dispatch] = useReducer(logger(reducer), {
     products: [],
-    loading: true,
+    loading: false,
     error: "",
   });
-  //   const [products, setProducts] = useState([]);
+  //console.log( state);
+  // const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get("/api/products");
-        dispatch({ type: "FETCH_SUCCESS", payloz: result.data });
+        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payloz: err.message });
+        dispatch({ type: "FETCH_FAIL", payload: err.message });
       }
-
-      // send ajax request to the inside url and send the results in variable result
-      // setProducts(result.data); // result.data is the products in the backend
+      // setProducts(result.data);
     };
     fetchData();
   }, []);
   return (
     <div>
-      <h1>Featured Products </h1>
+      <Helmet>
+        <title>Nile Store</title>
+      </Helmet>
+      <h1>Featured Products</h1>
       <div className="products">
         {loading ? (
-          <div> Loading ... </div>
+          <LoadingBox />
         ) : error ? (
-          <div> {error} </div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          products.map((product) => (
-            <div className="product" key={product.slug}>
-              <Link to={`/product/${product.slug}`}>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  width="200"
-                  height="250"
-                />
-              </Link>
-              <div className="prod-info">
-                <Link to={`/product/${product.slug}`}>
-                  <p>{product.name}</p>
-                </Link>
-
-                <p>
-                  <strong>{product.price} ₪</strong>
-                </p>
-                <button> Add to cart </button>
-              </div>
-            </div>
-          ))
+          <Row>
+            {products.map((product) => (
+              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                <Product product={product}></Product>
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
     </div>
   );
 }
+export default HomeScreen;

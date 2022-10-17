@@ -1,6 +1,28 @@
+import bcrypt from 'bcryptjs';
 const data = {
+  users: [
+    {
+      name: 'Basir',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('1234567'),
+      isAdmin: true,
+    },
+    {
+      name: 'John',
+      email: 'user@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+    {
+      name: 'Walid',
+      email: 'wjamjoumr@example.com',
+      password: bcrypt.hashSync('12345'),
+      isAdmin: true,
+    },
+  ],
   products: [
     {
+     // _id: "1",
       name: "Samsung Galaxy S10+",
       slug: "galaxy-s10+",
       category: "Mobile phones",
@@ -13,18 +35,20 @@ const data = {
       description: "high quality phone 128 GB",
     },
     {
+     // _id: "2",
       name: "Samsung Galaxy S20",
       slug: "galaxy-s20",
       category: "Mobile phones",
       image: "/images/gs20.jpg",
       price: 1649,
-      countInStock: 13,
+      countInStock: 0,
       brand: " Samsung",
-      rating: 4.7,
+      rating: 2.7,
       numReviews: 23,
       description: "high quality phone 8GB RAM",
     },
     {
+      //_id: "3",
       name: "Samsung Galaxy S20 ultra",
       slug: "galaxy-s20 ultra",
       category: "Mobile phones",
@@ -37,6 +61,7 @@ const data = {
       description: "high quality phone 12GB RAM",
     },
     {
+      //_id: "4",
       name: "Samsung Galaxy S21 Ultra",
       slug: "galaxy-s21 ultra",
       category: "Mobile phones",
